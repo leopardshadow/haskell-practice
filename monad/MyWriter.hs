@@ -39,10 +39,22 @@ bind f (gx, gs) = let (fx, fs) = f gx
 -- (bind f' . g') 1
 
 
+compose :: (Float -> (Float, String)) -> (Float -> (Float, String)) -> (Float -> (Float, String))
+compose f' g' x = (bind f' . g') x
+
+
+-- (f' `compose` g') 1
+
 -- 'identity' debuggable function
 -- unit * f = f * unit = f
 unit :: Float -> (Float, String)
 unit x = (x, "")
+
+
+-- lift :: (Float -> Float) -> (Float -> (Float, String))
+-- lift f x = (f x, "")
+
+-- (lift (+1)) `compose` f' $ 1
 
 
 -- -- now
