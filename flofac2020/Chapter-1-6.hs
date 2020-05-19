@@ -14,11 +14,17 @@
 penultimate xs = last (init xs)
 
 -- Find the antepenultimate (third-to-last) element in list xs
-antepenultimate xs = undefined
+antepenultimate = last . init . init
 
 -- Left shift list xs by 1
 -- For example, "shiftLeft [1, 2, 3]" should return "[2, 3, 1]"
-shiftLeft xs = undefined
+shiftLeft (x:xs) = xs ++ [x]
+
+testShiftLeft :: Bool
+testShiftLeft = and
+    [
+        shiftLeft [1, 2, 3] == [2, 3, 1]
+    ]
 
 -- Left shift list xs by n
 -- For example, "rotateLeft 2 [1, 2, 3]" should return "[3, 1, 2]"
@@ -36,11 +42,31 @@ data Day = Mon | Tue | Wed | Thu | Fri | Sat | Sun
 -- Note that if you try "succ Sun", you should get an error, because "succ" is not defined on "Sun"
 -- Define "next", which is like "succ", but returns "Mon" on "next Sun"
 next :: Day -> Day
-next = undefined
+next Sun = Mon
+next d = succ d 
+
+
+testIsNext = and
+    [
+        next Mon == Tue,
+        next Tue == Wed,
+        next Sat == Sun,
+        next Sun == Mon
+    ] 
+
 
 -- Return "True" on weekend
 isWeekend :: Day -> Bool
-isWeekend = undefined
+isWeekend d = d == Sat || d == Sun
+
+testIsWeekend :: Bool
+testIsWeekend = and
+    [
+        isWeekend Mon == False,
+        isWeekend Tue == False,
+        isWeekend Sat == True,
+        isWeekend Sun == True
+    ] 
 
 data Task = Work | Shop | Play deriving (Eq, Show)
 
@@ -55,6 +81,12 @@ schedule = [(Shop, Fri), (Work, Tue), (Play, Mon), (Play, Fri)]
 sortTask :: [(Task, Day)] -> [Task]
 sortTask = undefined
 
+-- testSortTask :: Bool
+-- testSortTask = and
+--     [
+--         sortTask schedule == [(Play, Mon), (Work, Tue), (Shop, Fri), (Play, Fri)]
+--     ]
+
 -- This function converts days to names, like "show", but a bit fancier
 -- For example, "nameOfDay Mon" should return "Monday"
 nameOfDay :: Day -> String
@@ -63,17 +95,33 @@ nameOfDay x = undefined
 -- You shouldn't be working on the weekends
 -- Return "False" if the Task is "Work" and the Day is "Sat" or "Sun"
 labourCheck :: Task -> Day -> Bool
-labourCheck task day = undefined
+labourCheck task day = task == Work && (isWeekend day)
 
 -- Raise x to the power y using recursion
 -- For example, "power 3 4" should return "81"
 power :: Int -> Int -> Int
-power x y = undefined
+power _ 0 = 1
+power x y = x * power x (y-1)
+
+testPower = and
+    [
+        power 3 4 == 81
+    ]
 
 -- Convert a list of booleans (big-endian) to a interger using recursion
 -- For example, "convertBinaryDigit [True, False, False]"
 convertBinaryDigit :: [Bool] -> Int
-convertBinaryDigit bits = undefined
+convertBinaryDigit = undefined
+-- convertBinaryDigit (Ture : bits) =
+-- convertBinaryDigit (False : bits) =
+
+
+testConvertBinaryDigit = and
+    [
+        convertBinaryDigit [True, False, False] == 5,
+        convertBinaryDigit [False, True, False, False] == 5,
+        convertBinaryDigit [True, True, False, False] == 13
+    ]
 
 -- Create a fibbonaci sequence of length N in reverse order
 -- For example, "fib 5" should return "[3, 2, 1, 1, 0]"
@@ -82,14 +130,27 @@ fib n = undefined
 
 -- Determine whether a given list is a palindrome
 -- For example, "palindrome []" or "palindrome [1, 3, 1]" should return "True"
-palindrome :: Eq q => [a] -> Bool
-palindrome xs = undefined
+palindrome :: Eq a => [a] -> Bool
+palindrome xs = xs == reverse xs
+
+testPalindrome = and
+    [  
+        palindrome [1] == True,
+        palindrome [1, 3, 1] == True
+    ]
 
 -- Map the first component of a pair with the given function
 -- For example, "mapFirst (+3) (4, True)" should return "(7, True)"
 mapFirst :: (a -> b) -> (a, c) -> (b, c)
-mapFirst f pair = undefined
+mapFirst f (x, y) = (f x, y) 
+-- mapFirst f pair = (f $ fst pair, snd pair)
+
+testMapFirst = and
+    [
+        mapFirst (+3) (4, True) == (7, True)
+    ]
 
 -- Devise a function that has the following type
 someFunction :: (a -> b -> c) -> (a -> b) -> a -> c
 someFunction = undefined
+
