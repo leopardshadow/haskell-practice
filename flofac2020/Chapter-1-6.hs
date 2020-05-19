@@ -15,6 +15,7 @@ penultimate xs = last (init xs)
 
 -- Find the antepenultimate (third-to-last) element in list xs
 antepenultimate = last . init . init
+-- throw exceptions if the list is too short
 
 -- Left shift list xs by 1
 -- For example, "shiftLeft [1, 2, 3]" should return "[2, 3, 1]"
@@ -136,16 +137,15 @@ testPower = and
 -- Convert a list of booleans (big-endian) to a interger using recursion
 -- For example, "convertBinaryDigit [True, False, False]"
 convertBinaryDigit :: [Bool] -> Int
-convertBinaryDigit = undefined
--- convertBinaryDigit (Ture : bits) =
--- convertBinaryDigit (False : bits) =
+convertBinaryDigit [] = 0
+convertBinaryDigit bits = (if last bits then 1 else 0) + 2 * convertBinaryDigit (init bits)
 
 
 testConvertBinaryDigit = and
     [
-        convertBinaryDigit [True, False, False] == 5,
-        convertBinaryDigit [False, True, False, False] == 5,
-        convertBinaryDigit [True, True, False, False] == 13
+        convertBinaryDigit [True, False, False] == 4,
+        convertBinaryDigit [False, True, False, False] == 4,
+        convertBinaryDigit [True, True, False, False] == 12
     ]
 
 -- Create a fibbonaci sequence of length N in reverse order
