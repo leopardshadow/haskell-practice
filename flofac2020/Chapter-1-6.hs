@@ -14,14 +14,17 @@
 -- Some of the definitions are left "undefined", you should replace them with your answers.
 
 -- Find the penultimate (second-to-last) element in list xs
+penultimate :: [a] -> a
 penultimate xs = last (init xs)
 
 -- Find the antepenultimate (third-to-last) element in list xs
+antepenultimate :: [a] -> a
 antepenultimate = last . init . init
 -- throw exceptions if the list is too short
 
 -- Left shift list xs by 1
 -- For example, "shiftLeft [1, 2, 3]" should return "[2, 3, 1]"
+shiftLeft :: [a] -> [a]
 shiftLeft (x:xs) = xs ++ [x]
 
 testShiftLeft :: Bool
@@ -32,6 +35,7 @@ testShiftLeft = and
 
 -- Left shift list xs by n
 -- For example, "rotateLeft 2 [1, 2, 3]" should return "[3, 1, 2]"
+rotateLeft :: Int -> [a] -> [a]
 rotateLeft 0 xs = xs
 rotateLeft n xs = rotateLeft (n-1) (shiftLeft xs)
 
@@ -43,6 +47,7 @@ testRotateLeft = and
 
 -- Insert element x in list xs at index k
 -- For example, "insertElem 100 3 [0,0,0,0,0]" should return [0,0,0,100,0,0]
+insertElem :: a -> Int -> [a] -> [a]
 insertElem x k xs = let (p1, p2) = splitAt k xs in p1 ++ [x] ++ p2
 
 testInsertElem :: Bool
