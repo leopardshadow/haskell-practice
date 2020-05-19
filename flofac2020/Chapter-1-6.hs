@@ -1,3 +1,6 @@
+{-# OPTIONS_GHC -Wall #-}
+
+
 -- This exercise covers the first 6 chapters of "Learn You a Haskell for Great Good!"
 
 -- Chapter 1 - http://learnyouahaskell.com/introduction
