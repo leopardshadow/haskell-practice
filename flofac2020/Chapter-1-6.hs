@@ -28,11 +28,24 @@ testShiftLeft = and
 
 -- Left shift list xs by n
 -- For example, "rotateLeft 2 [1, 2, 3]" should return "[3, 1, 2]"
-rotateLeft n xs = undefined
+rotateLeft 0 xs = xs
+rotateLeft n xs = rotateLeft (n-1) (shiftLeft xs)
+
+testRotateLeft :: Bool
+testRotateLeft = and
+    [
+        rotateLeft 2 [1, 2, 3] == [3, 1, 2]
+    ]
 
 -- Insert element x in list xs at index k
 -- For example, "insertElem 100 3 [0,0,0,0,0]" should return [0,0,0,100,0,0]
-insertElem x k xs = undefined
+insertElem x k xs = let (p1, p2) = splitAt k xs in p1 ++ [x] ++ p2
+
+testInsertElem :: Bool
+testInsertElem = and
+    [
+        insertElem 100 3 [0,0,0,0,0] == [0,0,0,100,0,0]
+    ]
 
 -- Here we have a type for the 7 days of the week
 -- Try typeclass functions like "show" or "maxBound" on them
@@ -90,7 +103,19 @@ sortTask = undefined
 -- This function converts days to names, like "show", but a bit fancier
 -- For example, "nameOfDay Mon" should return "Monday"
 nameOfDay :: Day -> String
-nameOfDay x = undefined
+nameOfDay x = case x of Tue -> "Tuesday"
+                        Wed -> "Wednesday"
+                        Thu -> "Thursday"
+                        Sat -> "Saturday"
+                        _ -> (show x) ++ "day"
+
+testNameOfDay :: Bool
+testNameOfDay = and
+    [
+        nameOfDay Mon == "Monday",
+        nameOfDay Tue == "Tuesday"
+    ]
+
 
 -- You shouldn't be working on the weekends
 -- Return "False" if the Task is "Work" and the Day is "Sat" or "Sun"
@@ -152,5 +177,7 @@ testMapFirst = and
 
 -- Devise a function that has the following type
 someFunction :: (a -> b -> c) -> (a -> b) -> a -> c
-someFunction = undefined
+someFunction gc gb a = gc a (gb a)
+
+
 
