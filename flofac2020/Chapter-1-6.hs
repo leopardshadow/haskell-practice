@@ -25,6 +25,7 @@ antepenultimate = last . init . init
 -- Left shift list xs by 1
 -- For example, "shiftLeft [1, 2, 3]" should return "[2, 3, 1]"
 shiftLeft :: [a] -> [a]
+shiftLeft [] = []
 shiftLeft (x:xs) = xs ++ [x]
 
 testShiftLeft :: Bool
@@ -67,7 +68,7 @@ next :: Day -> Day
 next Sun = Mon
 next d = succ d 
 
-
+testIsNext :: Bool
 testIsNext = and
     [
         next Mon == Tue,
@@ -137,6 +138,7 @@ power :: Int -> Int -> Int
 power _ 0 = 1
 power x y = x * power x (y-1)
 
+testPower :: Bool
 testPower = and
     [
         power 3 4 == 81
@@ -148,7 +150,7 @@ convertBinaryDigit :: [Bool] -> Int
 convertBinaryDigit [] = 0
 convertBinaryDigit bits = (if last bits then 1 else 0) + 2 * convertBinaryDigit (init bits)
 
-
+testConvertBinaryDigit :: Bool
 testConvertBinaryDigit = and
     [
         convertBinaryDigit [True, False, False] == 4,
@@ -166,6 +168,7 @@ fib n = undefined
 palindrome :: Eq a => [a] -> Bool
 palindrome xs = xs == reverse xs
 
+testPalindrome:: Bool
 testPalindrome = and
     [  
         palindrome [1] == True,
@@ -178,6 +181,7 @@ mapFirst :: (a -> b) -> (a, c) -> (b, c)
 mapFirst f (x, y) = (f x, y) 
 -- mapFirst f pair = (f $ fst pair, snd pair)
 
+testMapFirst :: Bool
 testMapFirst = and
     [
         mapFirst (+3) (4, True) == (7, True)
