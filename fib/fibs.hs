@@ -27,6 +27,30 @@ parallelListComp = [ 100 * x + 10 * y + z
                    | z <- [0..9]
                    ]
 
+-- zipWith3 (\(x, y, z) -> x + y * z) [0..10] [10..20] [20..30]
+
+
+
+regularListComp :: [Integer]
+regularListComp = [ 100 * x + 10 * y + z
+                   | x <- [0..9]
+                   , y <- [0..9]
+                   , z <- [0..9]
+                   ]
+
+
+
+test2 :: [Integer]
+test2 = [ 10 * x + y 
+         | x <- [1..3]
+         | y <- [1..5]
+        ]
+
+test3 :: [Integer]
+test3 = [ 10 * x + y 
+         | x <- [1..5]
+         | y <- [1..3]
+        ]
 
 
 {-

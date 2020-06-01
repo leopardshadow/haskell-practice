@@ -7,8 +7,12 @@ f = (+3)
 g :: Float -> Float
 g = (*10)
 
---
--- (f . g)  1
+h :: Float -> Float
+h = f . g
+
+-- (f . g) 1
+-- h 1
+
 
 f' :: Float -> (Float, String)
 f' x = (f x, "f is called. ")
@@ -17,7 +21,8 @@ g' :: Float -> (Float, String)
 g' x = (g x, "g is called. ")
 
 
--- f' $ g' 1   -- doesn't work
+-- (f' . g') 1   -- doesn't work
+
 
 
 -- directly extract the components

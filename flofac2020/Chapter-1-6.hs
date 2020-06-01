@@ -161,7 +161,18 @@ testConvertBinaryDigit = and
 -- Create a fibbonaci sequence of length N in reverse order
 -- For example, "fib 5" should return "[3, 2, 1, 1, 0]"
 fib :: Int -> [Int]
-fib n = undefined
+fib n = reverse (take n fibs)
+
+fibs :: [Int]
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+
+testFib = and
+    [
+        fib 5 == [3, 2, 1, 1, 0],
+        fib 10 == [34, 21, 13, 8, 5, 3, 2, 1, 1, 0]
+    ]
+
+
 
 -- Determine whether a given list is a palindrome
 -- For example, "palindrome []" or "palindrome [1, 3, 1]" should return "True"
