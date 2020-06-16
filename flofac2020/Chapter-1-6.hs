@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
+import Data.List
 
 -- This exercise covers the first 6 chapters of "Learn You a Haskell for Great Good!"
 
@@ -91,7 +92,7 @@ testIsWeekend = and
         isWeekend Sun == True
     ] 
 
-data Task = Work | Shop | Play deriving (Eq, Show)
+data Task = Work | Shop | Play deriving (Eq, Show, Ord)
 
 -- You are given a schedule, which is a list of pairs of Tasks and Days
 schedule :: [(Task, Day)]
@@ -101,14 +102,18 @@ schedule = [(Shop, Fri), (Work, Tue), (Play, Mon), (Play, Fri)]
 -- Sort the schedule by Day, and return only a list of Tasks. 
 -- If there are many Tasks in a Day, you should keep its original ordering
 -- For example, "sortTask schedule" should return "[(Play, Mon), (Work, Tue), (Shop, Fri), (Play, Fri)]"
-sortTask :: [(Task, Day)] -> [Task]
-sortTask = undefined
+sortTask :: [(Task, Day)] -> [(Task, Day)]
+sortTask = sortBy orderByDay
 
--- testSortTask :: Bool
--- testSortTask = and
---     [
---         sortTask schedule == [(Play, Mon), (Work, Tue), (Shop, Fri), (Play, Fri)]
---     ]
+orderByDay :: (Task, Day) -> (Task, Day) -> Ordering
+orderByDay (t1, d1) (t2, d2) = compare d1 d2 
+
+
+testSortTask :: Bool
+testSortTask = and
+    [
+        sortTask schedule == [(Play, Mon), (Work, Tue), (Shop, Fri), (Play, Fri)]
+    ]
 
 -- This function converts days to names, like "show", but a bit fancier
 -- For example, "nameOfDay Mon" should return "Monday"
